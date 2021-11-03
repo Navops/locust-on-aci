@@ -1,3 +1,36 @@
+# Doc Changes from Upstream
+
+## Environment Creation
+
+This branch removes the need for the keyvault and uses local state storage.  Simple instructions:
+
+    cd src/testing/infra
+    terraform init
+    terraform apply --var 'locustWorkerNodes=5' --var 'prefix=navops'
+    # Enter 'yes' when prompted if everything looks good
+    .
+    .
+    .
+    Apply complete! Resources: 13 added, 0 changed, 0 destroyed.
+    
+    Outputs:
+
+    locust_webui = "http://locust:QYhCkMMr65_zW%9_@safeoryx-locust-master.northeurope.azurecontainer.io:8089/"
+
+This will create a new resource group 'locust-navops-rg' and install a master and 5 workers in ACI.  The
+Locust environment can be accessed at the URL returned from terraform.
+
+## Locust Tests
+
+The locust tests are defined at `src/testing/locustfile.py` and can be changed as needed.
+
+## Environment Destruction
+
+The environment can be destroyed with a single command:
+
+   terraform destroy --var 'locustWorkerNodes=5' --var 'prefix=navops' 
+
+
 # Locust on Azure Container Instances (ACI)
 
 Load testing with [Locust](https://locust.io) using Azure Container Instances (ACI). This repository contains sample implementations in Terraform how to deploy and run load tests with Locust.
