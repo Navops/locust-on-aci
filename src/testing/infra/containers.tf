@@ -25,7 +25,7 @@ resource "azurerm_container_group" "master" {
     }
 
     secure_environment_variables = {
-      "LOCUST_WEB_AUTH" = "locust:${azurerm_key_vault_secret.locustsecret.value}"
+      "LOCUST_WEB_AUTH" = "locust:${random_password.locustsecret.result}",
     }
 
     volume {
