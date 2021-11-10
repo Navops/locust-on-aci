@@ -17,7 +17,21 @@ This branch removes the need for the keyvault and uses local state storage.  Sim
 
     locust_webui = "http://locust:QYhCkMMr65_zW%9_@safeoryx-locust-master.northeurope.azurecontainer.io:8089/"
 
-This will create a new resource group 'locust-navops-rg' and install a master and 5 workers in ACI.  The
+Newer versions may output `<sensitive>` in the place of a value for locust\_webui.  Simply run the following command
+to see the output values:
+
+```
+terraform output --json
+{
+  "locust_webui": {
+    "sensitive": true,
+    "type": "string",
+    "value": http://locust:QYhCkMMr65_zW%9_@safeoryx-locust-master.northeurope.azurecontainer.io:8089/"
+  }
+}
+```
+
+The above commands will create resource group 'locust-navops-rg' and install a master and 5 workers in ACI.  The
 Locust environment can be accessed at the URL returned from terraform.
 
 ## Locust Tests
@@ -28,7 +42,7 @@ The locust tests are defined at `src/testing/locustfile.py` and can be changed a
 
 The environment can be destroyed with a single command:
 
-   terraform destroy --var 'locustWorkerNodes=5' --var 'prefix=navops' 
+    terraform destroy --var 'locustWorkerNodes=5' --var 'prefix=navops'
 
 
 # Locust on Azure Container Instances (ACI)
